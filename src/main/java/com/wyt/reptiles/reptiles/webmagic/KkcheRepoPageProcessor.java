@@ -1,6 +1,7 @@
 package com.wyt.reptiles.reptiles.webmagic;
 
 import com.wyt.reptiles.reptiles.BCConvert;
+import com.wyt.reptiles.reptiles.Constants;
 import com.wyt.reptiles.reptiles.ICirculate;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
@@ -19,15 +20,14 @@ import java.util.stream.Collectors;
  * Created By Darcy on 2017/8/28 下午3:09
  */
 public class KkcheRepoPageProcessor implements PageProcessor {
-    private static String url = "http://confluence.kkche.cn/pages/viewpage.action?pageId=5800060";
     private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(10000)
-            .setDomain("confluence.kkche.cn")
+            .setDomain(Constants.REPTILES_DOMAIN)
             .addCookie("JSESSIONID", "B5817AE77095CDB686ED400599908BC8")
             .addCookie("confluence-sidebar.width", "285 ");
 
     @Override
     public void process(Page page) {
-        page.addTargetRequests(page.getHtml().links().regex("(http://confluence.kkche.cn/pages/viewpage.action?pageId=5800060)").all());
+        page.addTargetRequests(page.getHtml().links().regex("(" + Constants.REPTILES_ROOT + ")").all());
         Map<String, List<String>> prodMap = initMap("pro-cs", page, 1, 5, (ss, page1, line) -> {
             for (int k = 2; k <= 10; k++) {
                 String s = page1.getHtml().xpath("//[@class='table-wrap'][1]/table[@class='confluenceTable']/tbody/tr[" + k + "]/td[@class='confluenceTd'][" + line + "]/text()").toString();
@@ -126,7 +126,7 @@ public class KkcheRepoPageProcessor implements PageProcessor {
 
     public static void main(String[] args) {
         Spider.create(new KkcheRepoPageProcessor())
-                .addUrl(url)
+                .addUrl(Constants.REPTILES_ROOT)
                 .addPipeline(new KkchePipeline())
                 .thread(5)
                 .run();
