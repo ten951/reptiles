@@ -77,6 +77,14 @@ public class KkchePipeline implements Pipeline {
         }
     }
 
+    /**
+     * 组装实体
+     *
+     * @param entry       map视图
+     * @param environment 环境
+     * @param flag        是否双向
+     * @return list
+     */
     private List<DepartmentStatus> str2DepartmentStatus(Map.Entry<String, List<String>> entry, String environment, boolean flag) {
         List<String> value = entry.getValue();
         return value.stream()
@@ -88,6 +96,13 @@ public class KkchePipeline implements Pipeline {
     }
 
 
+    /**
+     * 封装key的两种形式
+     *
+     * @param key  key
+     * @param flag 是否双向
+     * @return key
+     */
     private String initKey(String key, boolean flag) {
         String keyPro = key.replaceAll("\\d+", "");
         if (flag) {
@@ -124,6 +139,14 @@ public class KkchePipeline implements Pipeline {
     }
 
 
+    /**
+     * 组装实体
+     *
+     * @param node        节点
+     * @param projectName 项目名称
+     * @param environment 环境
+     * @return 实体
+     */
     private DepartmentStatus initStatus(String node, String projectName, String environment) {
         DepartmentStatus status = new DepartmentStatus();
         status.setNode(node);
@@ -133,6 +156,15 @@ public class KkchePipeline implements Pipeline {
         return status;
     }
 
+    /**
+     * 组装实体
+     *
+     * @param node1       节点1
+     * @param node2       节点2
+     * @param projectName 项目名称
+     * @param environment 环境
+     * @return 实体集合
+     */
     private List<DepartmentStatus> initStatus(String node1, String node2, String projectName, String environment) {
         List<DepartmentStatus> statuses = new ArrayList<>();
         DepartmentStatus status = new DepartmentStatus();
