@@ -1,5 +1,6 @@
 package com.wyt.reptiles.reptiles.service.impl;
 
+import com.wyt.reptiles.reptiles.Constants;
 import com.wyt.reptiles.reptiles.service.IKkcService;
 import com.wyt.reptiles.reptiles.webmagic.KkchePipeline;
 import com.wyt.reptiles.reptiles.webmagic.KkcheRepoPageProcessor;
@@ -18,7 +19,7 @@ public class KkcServiceImpl implements IKkcService {
     @Override
     public void kkcinit() {
         Spider.create(new KkcheRepoPageProcessor())
-                .addUrl("http://confluence.kkche.cn/pages/viewpage.action?pageId=5800060")
+                .addUrl(Constants.REPTILES_ROOT)
                 .addPipeline(pipeline)
                 .run();
     }
